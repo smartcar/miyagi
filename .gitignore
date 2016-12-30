@@ -32,7 +32,9 @@ jsconfig.json
 tags
 .netrwhist
 Session.vim
+[._]*.sw[a-p]
 [._]s[a-w][a-z]
+[._]*.s[a-v][a-z]
 [._]*.]s[a-w][a-z]]
 
 ## Sublime
