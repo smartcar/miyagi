@@ -14,11 +14,12 @@ var $ = require('gulp-load-plugins')();
 $.polymerLint = require('polymer-lint/gulp');
 
 var transformObject = function(defaults, config) {
-  var args = _.reduce(config, function(args, value, key) {
-    return value ? _.concat(args, key) : _.without(args, key);
-  }, defaults);
+  var iterator = function(key) {
+    return config[key];
+  };
 
-  return _.uniq(args);
+  var enabled = _.union(defaults, _.filter(_.keys(config), iterator));
+  return _.difference(enabled, _.reject(_.keys(config), iterator));
 
 };
 
