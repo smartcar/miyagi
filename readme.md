@@ -1,6 +1,4 @@
-# miyagi  [![Build Status][ci-image]][ci-url] [![NPM package][npm-image]][npm-url]
-
-![](http://i.imgur.com/eTWHeaX.gifv)
+# miyagi
 
 A collection of gulp tools for linting web components.
 
