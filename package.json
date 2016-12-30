@@ -11,12 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/smartcar/browserlint-config-smartcar.git"
+    "url": "git+https://github.com/smartcar/miyagi.git"
   },
   "bugs": {
-    "url": "https://github.com/smartcar/browserlint-config-smartcar/issues"
+    "url": "https://github.com/smartcar/miyagi/issues"
   },
-  "homepage": "https://github.com/smartcar/browserlint-config-smartcar#readme",
+  "homepage": "https://github.com/smartcar/miyagi#readme",
   "keywords": [
     "lint",
     "style",
@@ -26,9 +26,6 @@
   ],
   "files": [
     "index.js",
-    "lint-config",
-    "lint-config",
-    "lint-config",
     "lint-config"
   ],
   "engines": {
@@ -39,6 +36,7 @@
     "gulp": ">=3.8.0"
   },
   "dependencies": {
+    "eslint-config-smartcar": "^2.0.2",
     "eslint-plugin-script-tags": "^0.1.4",
     "gulp-csslint-latest": "^0.1.6",
     "gulp-eslint": "^3.0.1",
