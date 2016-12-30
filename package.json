@@ -44,5 +44,8 @@
     "gulp-html-lint": "0.0.1",
     "gulp-load-plugins": "^1.4.0",
     "polymer-lint": "^0.8.3"
+  },
+  "devDependencies": {
+    "eslint": "^3.12.2"
   }
 }
