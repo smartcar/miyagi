@@ -1,0 +1,51 @@
+{
+  "name": "browserlint-config-smartcar",
+  "version": "1.0.0",
+  "description": "Shareable browser linting config for smartcar",
+  "main": "index.js",
+  "license": "MIT",
+  "author": {
+    "name": "Smartcar",
+    "email": "hello@smartcar.com",
+    "url": "https://smartcar.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smartcar/browserlint-config-smartcar.git"
+  },
+  "bugs": {
+    "url": "https://github.com/smartcar/browserlint-config-smartcar/issues"
+  },
+  "homepage": "https://github.com/smartcar/browserlint-config-smartcar#readme",
+  "keywords": [
+    "browserlint",
+    "smartcar",
+    "lint",
+    "style"
+  ],
+  "files": [
+    "index.js",
+    "lint-config/csslint.js",
+    "lint-config/eslint.js",
+    "lint-config/htmllint.js",
+    "lint-config/polymerlint.js"
+  ],
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "scripts": {},
+  "peerDependencies": {
+    "eslint": ">=3.5.0",
+    "gulp": ">=3.8.0"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "eslint-plugin-script-tags": "^0.1.4",
+    "gulp-csslint-latest": "^0.1.6",
+    "gulp-eslint": "^3.0.1",
+    "gulp-html-extract": "^0.2.0",
+    "gulp-html-lint": "0.0.1",
+    "gulp-load-plugins": "^1.4.0",
+    "polymer-lint": "^0.8.3"
+  }
+}
