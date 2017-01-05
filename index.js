@@ -40,6 +40,19 @@ module.exports = {
 
   },
 
+  eslintFix: function(target, config) {
+    var args = config || {};
+    args.fix = true;
+
+    return () => {
+
+      return this.eslint(target, args)()
+        .pipe(gulp.dest(target));
+
+    };
+
+  },
+
   csslint: function(target, config) {
     var args = _.assign(csslintDefaults, config);
 
