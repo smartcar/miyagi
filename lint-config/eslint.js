@@ -12,7 +12,7 @@ module.exports = {
     'page': false,
   },
   'plugins': [
-    'eslint-plugin-script-tags',
+    'eslint-plugin-script-tags'
   ],
   'rules': {
     'strict': ['error', 'function'],
