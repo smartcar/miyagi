@@ -2,10 +2,10 @@
 
 const moduleDirectory = __dirname;
 
+var eslintDefaults = require('./lint-config/eslint.js');
 var csslintDefaults = require('./lint-config/csslint.js');
 var htmllintDefaults = require('./lint-config/htmllint.js');
 var polymerlintDefaults = require('./lint-config/polymerlint.js');
-var eslintDefaults = require('./lint-config/eslint.js');
 
 var _ = require('lodash');
 var gulp = require('gulp');
@@ -43,7 +43,7 @@ module.exports = {
 
   },
 
-  eslintFix: function(target, config) {
+  eslintFix: function(target, config, dest) {
     var args = _.assign({
       configFile: path.join(moduleDirectory, 'lint-config/eslint.js'),
     }, config);
@@ -55,7 +55,7 @@ module.exports = {
 
       return gulp.src(target)
         .pipe($.eslintFix(args))
-        .pipe(gulp.dest('app'));
+        .pipe(gulp.dest(dest));
 
     };
 

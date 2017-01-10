@@ -1,7 +1,7 @@
 {
-  "name": "browserlint-config-smartcar",
+  "name": "miyagi",
   "version": "1.0.0",
-  "description": "Shareable browser linting config for smartcar",
+  "description": "Shareable browser linting configuration for smartcar",
   "main": "index.js",
   "license": "MIT",
   "author": {
@@ -11,17 +11,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/smartcar/browserlint-config-smartcar.git"
+    "url": "git+https://github.com/smartcar/miyagi.git"
   },
   "bugs": {
-    "url": "https://github.com/smartcar/browserlint-config-smartcar/issues"
+    "url": "https://github.com/smartcar/miyagi/issues"
   },
-  "homepage": "https://github.com/smartcar/browserlint-config-smartcar#readme",
+  "homepage": "https://github.com/smartcar/miyagi#readme",
   "keywords": [
     "browserlint",
     "smartcar",
     "lint",
-    "style"
+    "style",
+    "polymer"
   ],
   "files": [
     "index.js",
@@ -48,8 +49,6 @@
     "gulp-html-lint": "0.0.1",
     "gulp-load-plugins": "^1.4.0",
     "polymer-lint": "^0.8.3",
-    "replacestream": "^4.0.2",
-    "through2": "^2.0.3",
-    "uuid": "^3.0.1"
+    "through2": "^2.0.3"
   }
 }

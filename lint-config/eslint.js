@@ -7,10 +7,16 @@ module.exports = {
     'browser': true,
   },
   'globals': {
+    '_': false,
     'Polymer': false,
     'page': false,
   },
   'plugins': [
-    'eslint-plugin-script-tags'
+    'eslint-plugin-script-tags',
   ],
+  'rules': {
+    'strict': ['error', 'function'],
+    'eol-last' :['error', 'never'],
+    'no-console': ['error', {'allow': ['warn', 'error']}],
+  }
 };
