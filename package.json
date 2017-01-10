@@ -1,7 +1,7 @@
 {
   "name": "miyagi",
   "version": "1.0.0",
-  "description": "Shareable browser linting configuration for smartcar",
+  "description": "A collection of linting tools for web components",
   "main": "index.js",
   "license": "MIT",
   "author": {
@@ -18,30 +18,25 @@
   },
   "homepage": "https://github.com/smartcar/miyagi#readme",
   "keywords": [
-    "browserlint",
-    "smartcar",
     "lint",
     "style",
-    "polymer"
+    "polymer",
+    "components",
+    "karate"
   ],
   "files": [
     "index.js",
-    "lint-config/csslint.js",
-    "lint-config/eslint.js",
-    "lint-config/htmllint.js",
-    "lint-config/polymerlint.js"
+    "lint-config"
   ],
   "engines": {
     "node": ">=4.0.0"
   },
-  "scripts": {},
   "peerDependencies": {
-    "eslint": ">=3.5.0",
     "gulp": ">=3.8.0"
   },
-  "devDependencies": {},
   "dependencies": {
     "eslint": "^3.12.2",
+    "eslint-config-smartcar": "^2.0.2",
     "eslint-plugin-script-tags": "^0.1.4",
     "gulp-csslint-latest": "^0.1.6",
     "gulp-eslint": "^3.0.1",
