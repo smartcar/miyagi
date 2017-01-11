@@ -15,6 +15,7 @@ var eslint = require('eslint');
 var $ = require('gulp-load-plugins')();
 $.polymerLint = require('polymer-lint/gulp');
 $.eslintFix = require('./lib/plugins').eslintFix;
+$.replace = require('./lib/plugins').replace;
 
 var transformObject = function(defaults, config) {
   var iterator = function(key) {
@@ -43,7 +44,7 @@ module.exports = {
 
   },
 
-  eslintFix: function(target, config, dest) {
+  eslintFix: function(target, config) {
     var args = _.assign({
       configFile: path.join(moduleDirectory, 'lint-config/eslint.js'),
     }, config);
@@ -55,7 +56,6 @@ module.exports = {
 
       return gulp.src(target)
         .pipe($.eslintFix(args))
-        .pipe(gulp.dest(dest));
 
     };
 
