@@ -8,31 +8,51 @@ const gulp = require('gulp');
 const test = require('ava');
 const path = require('path');
 
-test('replace invokes modifier with tag content', function(t) {
-  t.plan(2);
+const helpers = require('./helpers/test-helpers');
+const check = helpers.check;
+const end = helpers.end;
 
-  const buff = new Buffer(nock.originalHTML);
-
+test.cb('replace invokes modifier with tag content', function(t) {
   const modifier = function(content) {
     t.is(content, nock.originalScript);
-    return content;
   };
-
-  const cb = function(arg, file) {
-    t.is(file.contents, buff);
-  };
-  // const nockPlugin = plugin.transform('script', modifier);
-  // console.log(nockPlugin);
 
   gulp.src(path.join(moduleDirectory, 'fixtures/original.html'))
-    .pipe(gulp.dest(path.join(moduleDirectory, 'result')));
-    // .pipe(plugin.transform('script', modifier));
-    // .pipe(console.log);
-    // .pipe(nockPlugin);
+    .pipe(plugin.replace('script', modifier))
+    .pipe(end(t.end));
 
 });
 
-// test('replace returns a modified buffer', function(t) {
+test.cb('replace modifies files', function(t) {
+  const modifier = function(content) {
+    t.is(content, nock.originalScript);
+    return nock.modifiedScript;
+  }
 
-// });
+  const verify = function(file) {
+    t.is(file, nock.modifiedHTML);
+  };
 
+  gulp.src(path.join(moduleDirectory, 'fixtures/original.html'))
+    .pipe(plugin.replace('script', modifier))
+    .pipe(check(verify))
+    .pipe(end(t.end));
+
+});
+
+test.cb('replace will match the entire file when a tag name is not provided', function(t) {
+  const modifier = function(content) {
+    t.is(content, nock.originalHTML);
+    return nock.modifiedHTML;
+  };
+
+  const verify = function(file) {
+    t.is(file, nock.modifiedHTML);
+  };
+
+  gulp.src(path.join(moduleDirectory, 'fixtures/original.html'))
+    .pipe(plugin.replace(null, modifier))
+    .pipe(check(verify))
+    .pipe(end(t.end));
+
+});
