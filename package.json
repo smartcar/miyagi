@@ -26,7 +26,8 @@
   ],
   "files": [
     "index.js",
-    "lint-config"
+    "lint-config",
+    "lib"
   ],
   "engines": {
     "node": ">=4.0.0"
