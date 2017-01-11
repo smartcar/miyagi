@@ -15,6 +15,7 @@ var eslint = require('eslint');
 var $ = require('gulp-load-plugins')();
 $.polymerLint = require('polymer-lint/gulp');
 $.eslintFix = require('./lib/plugins').eslintFix;
+$.replace = require('./lib/plugins').replace;
 
 var transformObject = function(defaults, config) {
   var iterator = function(key) {
@@ -26,85 +27,82 @@ var transformObject = function(defaults, config) {
 
 };
 
-module.exports = {
+const eslint = function(target, config) {
+  var args = _.assign({
+    configFile: path.join(moduleDirectory, 'lint-config/eslint.js'),
+  }, config);
 
-  eslint: function(target, config) {
-    var args = _.assign({
-      configFile: path.join(moduleDirectory, 'lint-config/eslint.js'),
-    }, config);
+  return function() {
 
-    return function() {
+    return gulp.src(target)
+      .pipe($.eslint(args))
+      .pipe($.eslint.formatEach());
 
-      return gulp.src(target)
-        .pipe($.eslint(args))
-        .pipe($.eslint.formatEach());
-
-    };
-
-  },
-
-  eslintFix: function(target, config, dest) {
-    var args = _.assign({
-      configFile: path.join(moduleDirectory, 'lint-config/eslint.js'),
-    }, config);
-
-    args.plugins = [];
-    args.fix = true;
-
-    return function() {
-
-      return gulp.src(target)
-        .pipe($.eslintFix(args))
-        .pipe(gulp.dest(dest));
-
-    };
-
-  },
-
-  csslint: function(target, config) {
-    var args = _.assign(csslintDefaults, config);
-
-    return function() {
-
-      return gulp.src(target)
-        .pipe($.htmlExtract({
-          sel: 'style',
-        }))
-        .pipe($.csslintLatest(args))
-        .pipe($.csslintLatest.reporter());
-
-    };
-
-  },
-
-  polymerlint: function(target, config) {
-    var args = transformObject(polymerlintDefaults, config);
-
-    return function() {
-
-      return gulp.src(target)
-        .pipe($.polymerLint({
-          rules: args,
-        }))
-        .pipe($.polymerLint.report());
-
-    };
-
-  },
-
-  htmllint: function(target, config) {
-    var args = _.assign(htmllintDefaults, config);
-
-    return function() {
-
-      return gulp.src(target)
-        .pipe($.htmlLint({
-          rules: args,
-        }))
-        .pipe($.htmlLint.formatEach());
-
-    };
-
-  },
+  };
 
 };
+
+const eslintFix = function(target, config) {
+  var args = _.assign({
+    configFile: path.join(moduleDirectory, 'lint-config/eslint.js'),
+  }, config);
+
+  args.plugins = [];
+  args.fix = true;
+
+  return function() {
+
+    return gulp.src(target)
+      .pipe($.eslintFix(args))
+
+  };
+
+};
+
+const csslint = function(target, config) {
+  var args = _.assign(csslintDefaults, config);
+
+  return function() {
+
+    return gulp.src(target)
+      .pipe($.htmlExtract({
+        sel: 'style',
+      }))
+      .pipe($.csslintLatest(args))
+      .pipe($.csslintLatest.reporter());
+
+  };
+
+};
+
+const polymerlint = function(target, config) {
+  var args = transformObject(polymerlintDefaults, config);
+
+  return function() {
+
+    return gulp.src(target)
+      .pipe($.polymerLint({
+        rules: args,
+      }))
+      .pipe($.polymerLint.report());
+
+  };
+
+};
+
+const htmllint = function(target, config) {
+  var args = _.assign(htmllintDefaults, config);
+
+  return function() {
+
+    return gulp.src(target)
+      .pipe($.htmlLint({
+        rules: args,
+      }))
+      .pipe($.htmlLint.formatEach());
+
+  };
+
+};
+
+module.exports = {eslint, eslintFix, csslint, polymerlint, htmllint};
