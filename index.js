@@ -15,7 +15,7 @@ var eslint = require('eslint');
 var $ = require('gulp-load-plugins')();
 $.polymerLint = require('polymer-lint/gulp');
 $.eslintFix = require('./lib/plugins').eslintFix;
-$.replace = require('./lib/plugins').replace;
+$.inject = require('./lib/plugins').inject;
 
 var transformObject = function(defaults, config) {
   var iterator = function(key) {
