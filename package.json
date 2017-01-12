@@ -1,6 +1,6 @@
 {
   "name": "miyagi",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A collection of linting tools for web components",
   "main": "index.js",
   "license": "MIT",
@@ -32,6 +32,9 @@
   "engines": {
     "node": ">=4.0.0"
   },
+  "scripts": {
+    "test": "ava"
+  },
   "peerDependencies": {
     "gulp": ">=3.8.0"
   },
@@ -46,5 +49,9 @@
     "gulp-load-plugins": "^1.4.0",
     "polymer-lint": "^0.8.3",
     "through2": "^2.0.3"
+  },
+  "devDependencies": {
+    "ava": "^0.17.0",
+    "gulp": "^3.9.1"
   }
 }
