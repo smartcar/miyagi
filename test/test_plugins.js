@@ -1,7 +1,5 @@
 'use strict';
 
-const moduleDirectory = __dirname;
-
 const {check, end} = require('./helpers/test_helpers');
 const plugin = require('../lib/plugins');
 const mock = require('./fixtures');
@@ -14,7 +12,7 @@ test.cb('inject invokes modifier with tag content', function(t) {
     t.is(content, mock.originalScript);
   };
 
-  gulp.src(path.join(moduleDirectory, 'fixtures/original.html'))
+  gulp.src(path.join(__dirname, 'fixtures/original.html'))
     .pipe(plugin.inject('script', modifier))
     .pipe(end(t.end));
 
@@ -30,7 +28,7 @@ test.cb('inject modifies files', function(t) {
     t.is(file, mock.modifiedHTML);
   };
 
-  gulp.src(path.join(moduleDirectory, 'fixtures/original.html'))
+  gulp.src(path.join(__dirname, 'fixtures/original.html'))
     .pipe(plugin.inject('script', modifier))
     .pipe(check(verify))
     .pipe(end(t.end));
@@ -42,7 +40,7 @@ test.cb('extract pipes tag content to the next plugin', function(t) {
     t.is(file, mock.originalScript);
   };
 
-  gulp.src(path.join(moduleDirectory, 'fixtures/original.html'))
+  gulp.src(path.join(__dirname, 'fixtures/original.html'))
     .pipe(plugin.extract('script'))
     .pipe(check(verify))
     .pipe(end(t.end));
@@ -72,7 +70,7 @@ test.cb('extract will create a new stream for every matching tag pair', function
   * streams. One will be identical to 'original-script.js'. The
   * other will match 'modified-script.js'
   */
-  gulp.src(path.join(moduleDirectory, 'fixtures/multiple-match.html'))
+  gulp.src(path.join(__dirname, 'fixtures/multiple-match.html'))
     .pipe(plugin.extract('script'))
     .pipe(check(verify));
 
