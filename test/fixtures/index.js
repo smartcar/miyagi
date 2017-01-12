@@ -7,5 +7,6 @@ const originalHTML = fs.readFileSync(path.join(__dirname, 'original.html'), 'utf
 const modifiedHTML = fs.readFileSync(path.join(__dirname, 'modified.html'), 'utf8');
 const originalScript = fs.readFileSync(path.join(__dirname, 'original-script.js'), 'utf8');
 const modifiedScript = fs.readFileSync(path.join(__dirname, 'modified-script.js'), 'utf8');
+const multipleMatchHTML = fs.readFileSync(path.join(__dirname, 'multiple-match.html'), 'utf8');
 
 module.exports = {originalHTML, modifiedHTML, originalScript, modifiedScript};
