@@ -9,18 +9,18 @@ const gulp = require('gulp');
 const test = require('ava');
 const path = require('path');
 
-test.cb('replace invokes modifier with tag content', function(t) {
+test.cb('inject invokes modifier with tag content', function(t) {
   const modifier = function(content) {
     t.is(content, mock.originalScript);
   };
 
   gulp.src(path.join(moduleDirectory, 'fixtures/original.html'))
-    .pipe(plugin.replace('script', modifier))
+    .pipe(plugin.inject('script', modifier))
     .pipe(end(t.end));
 
 });
 
-test.cb('replace modifies files', function(t) {
+test.cb('inject modifies files', function(t) {
   const modifier = function(content) {
     t.is(content, mock.originalScript);
     return mock.modifiedScript;
@@ -31,25 +31,25 @@ test.cb('replace modifies files', function(t) {
   };
 
   gulp.src(path.join(moduleDirectory, 'fixtures/original.html'))
-    .pipe(plugin.replace('script', modifier))
+    .pipe(plugin.inject('script', modifier))
     .pipe(check(verify))
     .pipe(end(t.end));
 
 });
 
-test.cb('pull pipes tag content to the next plugin', function(t) {
+test.cb('extract pipes tag content to the next plugin', function(t) {
   const verify = function(file) {
     t.is(file, mock.originalScript);
   };
 
   gulp.src(path.join(moduleDirectory, 'fixtures/original.html'))
-    .pipe(plugin.pull('script'))
+    .pipe(plugin.extract('script'))
     .pipe(check(verify))
     .pipe(end(t.end));
 
 });
 
-test.cb('pull will create a new stream for every matching tag pair', function(t) {
+test.cb('extract will create a new stream for every matching tag pair', function(t) {
   var completedStreams = 0;
 
   const verify = function(file) {
@@ -68,12 +68,12 @@ test.cb('pull will create a new stream for every matching tag pair', function(t)
 
   /*
   * The 'multiple-match.html' file contains two 'script' tags.
-  * When passed into 'pull', it will be split into two separate
+  * When passed into 'extract', it will be split into two separate
   * streams. One will be identical to 'original-script.js'. The
   * other will match 'modified-script.js'
   */
   gulp.src(path.join(moduleDirectory, 'fixtures/multiple-match.html'))
-    .pipe(plugin.pull('script'))
+    .pipe(plugin.extract('script'))
     .pipe(check(verify));
 
 });
