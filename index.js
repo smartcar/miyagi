@@ -3,7 +3,7 @@
 const moduleDirectory = __dirname;
 
 var eslintDefaults = require('./lint-config/eslint.js');
-var csslintDefaults = require('./lint-config/csslint.js');
+var csslintDefaults = require('./lint-config/stylelint.js');
 var htmllintDefaults = require('./lint-config/htmllint.js');
 var polymerlintDefaults = require('./lint-config/polymerlint.js');
 
@@ -11,11 +11,13 @@ var _ = require('lodash');
 var gulp = require('gulp');
 var path = require('path');
 var eslint = require('eslint');
+const CLIEngine = require('eslint').CLIEngine;
 
 var $ = require('gulp-load-plugins')();
 $.polymerLint = require('polymer-lint/gulp');
 $.eslintFix = require('./lib/plugins').eslintFix;
 $.inject = require('./lib/plugins').inject;
+$.extract = require('./lib/plugins').extract;
 
 var transformObject = function(defaults, config) {
   var iterator = function(key) {
@@ -27,7 +29,7 @@ var transformObject = function(defaults, config) {
 
 };
 
-const eslint = function(target, config) {
+const jslint = function(target, config) {
   var args = _.assign({
     configFile: path.join(moduleDirectory, 'lint-config/eslint.js'),
   }, config);
@@ -42,7 +44,7 @@ const eslint = function(target, config) {
 
 };
 
-const eslintFix = function(target, config) {
+const jslintFix = function(target, config) {
   var args = _.assign({
     configFile: path.join(moduleDirectory, 'lint-config/eslint.js'),
   }, config);
@@ -65,11 +67,11 @@ const csslint = function(target, config) {
   return function() {
 
     return gulp.src(target)
-      .pipe($.htmlExtract({
-        sel: 'style',
-      }))
-      .pipe($.csslintLatest(args))
-      .pipe($.csslintLatest.reporter());
+      .pipe($.extract('style'))
+      .pipe($.stylelint({
+        config: args,
+        reporters: [{formatter: 'string', console: true}],
+      }));
 
   };
 
