@@ -1,9 +1,9 @@
 'use strict';
 
-var eslintDefaults = require('./lint-config/eslint.js');
-var csslintDefaults = require('./lint-config/stylelint.js');
-var htmllintDefaults = require('./lint-config/htmllint.js');
-var polymerlintDefaults = require('./lint-config/polymerlint.js');
+const eslintDefaults = require('./lint-config/eslint.js');
+const csslintDefaults = require('./lint-config/stylelint.js');
+const htmllintDefaults = require('./lint-config/htmllint.js');
+const polymerlintDefaults = require('./lint-config/polymerlint.js');
 
 const _ = require('lodash');
 const gulp = require('gulp');
@@ -17,7 +17,7 @@ $.eslintFix = require('./lib/plugins').eslintFix;
 $.inject = require('./lib/plugins').inject;
 $.extract = require('./lib/plugins').extract;
 
-var transformObject = function(defaults, config) {
+const transformObject = function(defaults, config) {
   var iterator = function(key) {
     return config[key];
   };
