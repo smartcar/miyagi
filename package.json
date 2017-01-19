@@ -42,11 +42,11 @@
     "eslint": "^3.12.2",
     "eslint-config-smartcar": "^2.0.2",
     "eslint-plugin-script-tags": "^0.1.4",
-    "gulp-csslint-latest": "^0.1.6",
     "gulp-eslint": "^3.0.1",
     "gulp-html-extract": "^0.2.0",
     "gulp-html-lint": "0.0.1",
     "gulp-load-plugins": "^1.4.0",
+    "gulp-stylelint": "^3.7.0",
     "polymer-lint": "^0.8.3",
     "through2": "^2.0.3"
   },
