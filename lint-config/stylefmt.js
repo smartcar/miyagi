@@ -3,7 +3,6 @@
 module.exports = {
   'rules': {
     'indentation': 2,
-    'color-hex-case': 'upper',
     'length-zero-no-unit': true,
     'number-leading-zero': 'always',
     'number-no-trailing-zeros': true,

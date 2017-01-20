@@ -61,9 +61,9 @@ const scriptlintFix = function(target, config) {
     * tag spacing. This issue is solved by re-inserting whitespace
     * once linting is complete.
     */
-    const whitespace = script.match(/[\r\n\t ]+$/)[0];
+    const trailingWhitespace = script.match(/[\r\n\t ]+$/)[0];
 
-    return linter.executeOnText(script).results[0].output + whitespace || script;
+    return linter.executeOnText(script).results[0].output + trailingWhitespace || script;
   };
 
   return function() {
@@ -95,19 +95,27 @@ const csslintFix = function(target, config, dest) {
   var args = _.assign(stylefmtDefaults, config);
 
   const modifier = function(css) {
+    const openingWhitespace = css.match(/^[\r\n\t ]+/)[0];
+    const trailingWhitespace = css.match(/[\t ]+$/)[0];
+    const indentation = openingWhitespace.match(/^\n([\t ]+)/)[1];
 
-    const p = postcss([stylefmt(args)])
+    var fixed;
+
+    postcss([stylefmt(args)])
       .process(css)
       .then(function(res) {
-        css = res.css;
+        fixed = res.css;
       });
 
     deasync.loopWhile(function() {
-      console.log(p);
-      return p.isPending();
+      return typeof fixed !== 'string';
     })
 
-    return css;
+    fixed = '\n' + _.replace(fixed, /^[\t ]*[\s\S]/gm, function(match) {
+      return indentation + match;
+    });
+
+    return fixed.replace(/[ \t]*$/, trailingWhitespace);
   };
 
   return function() {

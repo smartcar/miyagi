@@ -16,9 +16,8 @@ test.cb('scriptlintFix applies changes to javascript', function(t) {
 
 });
 
-test.only.cb('csslintFix applies changes to css', function(t) {
+test.cb('csslintFix applies changes to css', function(t) {
   const verify = function(file) {
-    console.log(file);
     t.is(file, mock.lintedStyle);
   };
 
