@@ -56,14 +56,19 @@ const scriptlintFix = function(target, config) {
 
   const modifier = function(script) {
     var linter = new CLIEngine(args);
+    var trailingWhitespace = script.match(/[\r\n\t ]+$/);
+    var output = linter.executeOnText(script).results[0].output || script;
+
     /* 
     * eslint removes trailing whitespace by default. This can cause problems with
     * tag spacing. This issue is solved by re-inserting whitespace
     * once linting is complete.
     */
-    const whitespace = script.match(/[\r\n\t ]+$/)[0];
+    if (trailingWhitespace) {
+      output += trailingWhitespace[0];
+    }
 
-    return linter.executeOnText(script).results[0].output + whitespace || script;
+    return output;
   };
 
   return function() {
@@ -95,19 +100,36 @@ const csslintFix = function(target, config, dest) {
   var args = _.assign(stylefmtDefaults, config);
 
   const modifier = function(css) {
+    var openingWhitespace = css.match(/^[\r\n\t ]+/);
+    var trailingWhitespace = css.match(/[\t ]+$/);
+    var indentation;
+    var output;
 
-    const p = postcss([stylefmt(args)])
+    if (openingWhitespace) {
+      indentation = openingWhitespace[0].match(/^([\t ]+)/m);
+    }
+
+    postcss([stylefmt(args)])
       .process(css)
       .then(function(res) {
-        css = res.css;
+        output = res.css;
       });
 
     deasync.loopWhile(function() {
-      console.log(p);
-      return p.isPending();
-    })
+      return typeof output !== 'string';
+    });
 
-    return css;
+    if (indentation) {
+      output = _.replace(output, /^[\t ]*[\s\S]/gm, function(match) {
+        return indentation[0] + match;
+      });
+    }
+
+    if (trailingWhitespace) {
+      output = output.replace(/[ \t]*$/, trailingWhitespace);
+    }
+
+    return output;
   };
 
   return function() {

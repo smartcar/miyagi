@@ -16,13 +16,33 @@ test.cb('scriptlintFix applies changes to javascript', function(t) {
 
 });
 
-test.only.cb('csslintFix applies changes to css', function(t) {
+test.cb('scriptlintFix does not change correctly formatted script', function(t) {
   const verify = function(file) {
-    console.log(file);
+    t.is(file, mock.lintedScript);
+  };
+
+  scriptlintFix(path.join(__dirname, './fixtures/linted-script.html'))()
+    .pipe(check(verify))
+    .pipe(end(t.end));
+});
+
+test.cb('csslintFix applies changes to css', function(t) {
+  const verify = function(file) {
     t.is(file, mock.lintedStyle);
   };
 
   csslintFix(path.join(__dirname, './fixtures/unlinted-style.html'))()
+    .pipe(check(verify))
+    .pipe(end(t.end));
+
+});
+
+test.cb('csslintFix does not change correctly formatted css', function(t) {
+  const verify = function(file) {
+    t.is(file, mock.lintedStyle);
+  };
+
+  csslintFix(path.join(__dirname, './fixtures/linted-style.html'))()
     .pipe(check(verify))
     .pipe(end(t.end));
 
