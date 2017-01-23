@@ -3,7 +3,11 @@
     <script type="text/javascript">
       console.log('too... many... semicolons...');
       console.log('not indented correctly!');
+      var foo = function(bar) {
+        console.log('also not indented correctly');
+      };
     </script>
+    <script>console.log('one line only');</script>
   </head>
   <body>
     <div>Some Content</div>

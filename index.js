@@ -56,14 +56,19 @@ const scriptlintFix = function(target, config) {
 
   const modifier = function(script) {
     var linter = new CLIEngine(args);
+    var trailingWhitespace = script.match(/[\r\n\t ]+$/);
+    var output = linter.executeOnText(script).results[0].output || script;
+
     /* 
     * eslint removes trailing whitespace by default. This can cause problems with
     * tag spacing. This issue is solved by re-inserting whitespace
     * once linting is complete.
     */
-    const trailingWhitespace = script.match(/[\r\n\t ]+$/)[0];
+    if (trailingWhitespace) {
+      output += trailingWhitespace[0];
+    }
 
-    return linter.executeOnText(script).results[0].output + trailingWhitespace || script;
+    return output;
   };
 
   return function() {
@@ -95,27 +100,36 @@ const csslintFix = function(target, config, dest) {
   var args = _.assign(stylefmtDefaults, config);
 
   const modifier = function(css) {
-    const openingWhitespace = css.match(/^[\r\n\t ]+/)[0];
-    const trailingWhitespace = css.match(/[\t ]+$/)[0];
-    const indentation = openingWhitespace.match(/^\n([\t ]+)/)[1];
+    var openingWhitespace = css.match(/^[\r\n\t ]+/);
+    var trailingWhitespace = css.match(/[\t ]+$/);
+    var indentation;
+    var output;
 
-    var fixed;
+    if (openingWhitespace) {
+      indentation = openingWhitespace[0].match(/^([\t ]+)/m);
+    }
 
     postcss([stylefmt(args)])
       .process(css)
       .then(function(res) {
-        fixed = res.css;
+        output = res.css;
       });
 
     deasync.loopWhile(function() {
-      return typeof fixed !== 'string';
-    })
-
-    fixed = '\n' + _.replace(fixed, /^[\t ]*[\s\S]/gm, function(match) {
-      return indentation + match;
+      return typeof output !== 'string';
     });
 
-    return fixed.replace(/[ \t]*$/, trailingWhitespace);
+    if (indentation) {
+      output = _.replace(output, /^[\t ]*[\s\S]/gm, function(match) {
+        return indentation[0] + match;
+      });
+    }
+
+    if (trailingWhitespace) {
+      output = output.replace(/[ \t]*$/, trailingWhitespace);
+    }
+
+    return output;
   };
 
   return function() {
