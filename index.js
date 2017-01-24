@@ -129,7 +129,7 @@ const csslintFix = function(target, config, dest) {
       output = output.replace(/[ \t]*$/, trailingWhitespace);
     }
 
-    return output;
+    return '\n' + output;
   };
 
   return function() {
