@@ -27,13 +27,13 @@ after_success:
   - git config --global user.email "ci@smartcar.com"
   - git config --global user.name "Travis CI User"
 
-  # only run git tag on master branch. which includes PR builds
-  - if [ "$(TRAVIS_BRANCH)" = "master" ]; then git tag -a v$(prod_image_tag) -m "Travis Generated Tag"; fi
+  - export VERSION="$(grep \"version\" package.json | sed 's/[", ]//g' | cut -d : -f 2)"
+  - test $TRAVIS_BRANCH = "master"  && git tag -a v$VERSION -m "Travis Generated Tag"
 
 deploy:
   provider: script
   skip_cleanup: true
-  script: git tag origin $(grep \"version\" package.json | sed 's/[", ]//g' | cut -d : -f 2)
+  script: git tag origin v$VERSION
   on:
     branch: master
     node: node
