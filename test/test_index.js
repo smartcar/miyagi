@@ -1,3 +1,5 @@
+'use strict';
+
 const {check, end} = require('./helpers/test_helpers');
 const {scriptlintFix, csslintFix} = require('../index.js');
 const mock = require('./fixtures');

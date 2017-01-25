@@ -23,8 +23,8 @@ $.extract = require('./lib/plugins').extract;
 /**
  * Transforms a configuration object into an array (used by 'polymerlint')
  *
- * @param {object} defaults the default settings for a linter
- * @param {object} [config] a configuration object that can be
+ * @param {Object} defaults the default settings for a linter
+ * @param {Object} [config] a configuration object that can be
  * used to override eslint defaults found within lint-config/eslint
  *
  * @returns {string[]} an array of linter settings
@@ -42,8 +42,8 @@ const transformObject = function(defaults, config) {
 /**
  * Lints the js found within 'script' tags
  *
- * @param {string|string[]} target html files to lint
- * @param {object} [config] a configuration object that can be
+ * @param {String|String[]} target html files to lint
+ * @param {Object} [config] a configuration object that can be
  * used to override eslint defaults found within lint-config/eslint
  *
  * @returns {function} A function that will return a gulp 
@@ -67,8 +67,8 @@ const scriptlint = function(target, config) {
 /**
  *  Autofixes the js found within 'script' tags
  *
- * @param {string|string[]} target html files to lint
- * @param {object} [config] a configuration object that can be
+ * @param {String|String[]} target html files to lint
+ * @param {Object} [config] a configuration object that can be
  * used to override eslint defaults found within lint-config/eslint
  *
  * @returns {function} A function that will return a gulp 
@@ -86,9 +86,9 @@ const scriptlintFix = function(target, config) {
    * Modifier function that uses eslint's autofix feature
    * and returns the fixed text.
    *
-   * @param {string} script the content of a script tag
+   * @param {String} script the content of a script tag
    *
-   * @returns {string} output the fixed tag content
+   * @returns {String} output the fixed tag content
    */
   const modifier = function(script) {
     var linter = new CLIEngine(args);
@@ -119,8 +119,8 @@ const scriptlintFix = function(target, config) {
 /**
  * Lints the css found within 'style' tags
  *
- * @param {string|string[]} target html files to lint
- * @param {object} [config] a configuration object that can be
+ * @param {String|String[]} target html files to lint
+ * @param {Object} [config] a configuration object that can be
  * used to override style defaults found within lint-config/stylelint
  *
  * @returns {function} A function that will return a gulp 
@@ -145,8 +145,8 @@ const csslint = function(target, config) {
 /**
  * Autofixes the css found within 'style' tags
  *
- * @param {string|string[]} target html files to lint
- * @param {object} [config] a configuration object that can be
+ * @param {String|String[]} target html files to lint
+ * @param {Object} [config] a configuration object that can be
  * used to override style defaults found within lint-config/stylelint
  *
  * @returns {function} A function that will return a gulp 
@@ -159,9 +159,9 @@ const csslintFix = function(target, config) {
    * Modifier function that uses stylefmt autofix
    * and returns the fixed text.
    *
-   * @param {string} css the content of a style tag
+   * @param {String} css the content of a style tag
    *
-   * @returns {string} output the fixed tag content
+   * @returns {String} output the fixed tag content
    */
   const modifier = function(css) {
     var openingWhitespace = css.match(/^[\r\n\t ]+/);
@@ -173,27 +173,24 @@ const csslintFix = function(target, config) {
       indentation = openingWhitespace[0].match(/^([\t ]+)/m);
     }
 
-    postcss([stylefmt(args)])
+    return postcss([stylefmt(args)])
       .process(css)
       .then(function(res) {
         output = res.css;
+
+        if (indentation) {
+          output = _.replace(output, /^[\t ]*[\s\S]/gm, function(match) {
+            return indentation[0] + match;
+          });
+        }
+
+        if (trailingWhitespace) {
+          output = output.replace(/[ \t]*$/, trailingWhitespace);
+        }
+
+        return '\n' + output;
       });
 
-    deasync.loopWhile(function() {
-      return typeof output !== 'string';
-    });
-
-    if (indentation) {
-      output = _.replace(output, /^[\t ]*[\s\S]/gm, function(match) {
-        return indentation[0] + match;
-      });
-    }
-
-    if (trailingWhitespace) {
-      output = output.replace(/[ \t]*$/, trailingWhitespace);
-    }
-
-    return '\n' + output;
   };
 
   return function() {
@@ -208,8 +205,8 @@ const csslintFix = function(target, config) {
 /**
  * Checks files against component-specific linting rules
  *
- * @param {string|string[]} target html files to lint
- * @param {object} [config] a configuration object that can be
+ * @param {String|String[]} target html files to lint
+ * @param {Object} [config] a configuration object that can be
  * used to override style defaults found within lint-config/polymer
  *
  * @returns {function} A function that will return a gulp 
@@ -233,8 +230,8 @@ const polymerlint = function(target, config) {
 /**
  * Lints an entire html document
  *
- * @param {string|string[]} target html files to lint
- * @param {object} [config] a configuration object that can be
+ * @param {String|String[]} target html files to lint
+ * @param {Object} [config] a configuration object that can be
  * used to override style defaults found within lint-config/polymer
  *
  * @returns {function} A function that will return a gulp 
