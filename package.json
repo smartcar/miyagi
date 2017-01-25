@@ -50,6 +50,7 @@
     "gulp-stylelint": "^3.7.0",
     "polymer-lint": "^0.8.3",
     "postcss": "^5.2.10",
+    "string-replace-async": "^1.2.0",
     "stylefmt": "^5.1.1",
     "through2": "^2.0.3"
   },

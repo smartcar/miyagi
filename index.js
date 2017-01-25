@@ -173,27 +173,24 @@ const csslintFix = function(target, config) {
       indentation = openingWhitespace[0].match(/^([\t ]+)/m);
     }
 
-    postcss([stylefmt(args)])
+    return postcss([stylefmt(args)])
       .process(css)
       .then(function(res) {
         output = res.css;
+
+        if (indentation) {
+          output = _.replace(output, /^[\t ]*[\s\S]/gm, function(match) {
+            return indentation[0] + match;
+          });
+        }
+
+        if (trailingWhitespace) {
+          output = output.replace(/[ \t]*$/, trailingWhitespace);
+        }
+
+        return '\n' + output;
       });
 
-    deasync.loopWhile(function() {
-      return typeof output !== 'string';
-    });
-
-    if (indentation) {
-      output = _.replace(output, /^[\t ]*[\s\S]/gm, function(match) {
-        return indentation[0] + match;
-      });
-    }
-
-    if (trailingWhitespace) {
-      output = output.replace(/[ \t]*$/, trailingWhitespace);
-    }
-
-    return '\n' + output;
   };
 
   return function() {
