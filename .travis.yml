@@ -5,7 +5,6 @@ node_js:
   - 6
   - 4
 
-
 cache:
   directories:
     - $HOME/.npm
@@ -18,9 +17,6 @@ branches:
     - /^v\d+\.\d+\.\d+$/
 
 install:
-  - git clone git@github.com:smartcar/build.git $HOME/smartcar-build
-  - cp $HOME/smartcar-build/resources/Makefile .
-
   - npm update
   - npm prune
 
@@ -28,12 +24,16 @@ script:
   - npm test
 
 after_success:
-  - make create-tag
+  - git config --global user.email "ci@smartcar.com"
+  - git config --global user.name "Travis CI User"
+
+  # only run git tag on master branch. which includes PR builds
+  - if [ "$(TRAVIS_BRANCH)" = "master" ]; then git tag -a v$(prod_image_tag) -m "Travis Generated Tag"; fi
 
 deploy:
   provider: script
   skip_cleanup: true
-  script: make push-tag
+  script: git push origin v$(prod_image_tag)
   on:
     branch: master
     node: node
