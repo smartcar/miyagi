@@ -48,6 +48,7 @@
     "gulp-load-plugins": "^1.4.0",
     "gulp-stylelint": "^3.7.0",
     "gulp-util": "^3.0.8",
+    "lodash": "^4.17.4",
     "polymer-lint": "^0.8.3",
     "postcss": "^5.2.10",
     "string-replace-async": "^1.2.0",
