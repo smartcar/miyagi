@@ -3,7 +3,7 @@
 module.exports = {
   'rules': {
     'color-hex-case': 'upper',
-    'color-names': 'never',
+    'color-named': 'never',
     'color-no-invalid-hex': true,
     'function-calc-no-unspaced-operator': true,
     'function-max-empty-lines': 1,
@@ -41,7 +41,7 @@ module.exports = {
     'number-max-precision': 2,
     'number-no-trailing-zeros': true,
     'no-duplicate-selectors': true,
-    'indentaion': 2,
+    'indentation': 2,
     'font-family-no-duplicate-names': true,
     'font-family-name-quotes': 'always-where-required',
     'length-zero-no-unit': true,
