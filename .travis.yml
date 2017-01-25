@@ -33,7 +33,7 @@ after_success:
 deploy:
   provider: script
   skip_cleanup: true
-  script: git push origin v$(prod_image_tag)
+  script: git tag origin $(grep \"version\" package.json | sed 's/[", ]//g' | cut -d : -f 2)
   on:
     branch: master
     node: node
