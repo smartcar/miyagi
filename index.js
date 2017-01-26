@@ -13,7 +13,6 @@ const eslint = require('eslint');
 const postcss = require('postcss');
 const stylefmt = require('stylefmt');
 const CLIEngine = require('eslint').CLIEngine;
-const deasync = require('deasync');
 
 const $ = require('gulp-load-plugins')();
 $.polymerLint = require('polymer-lint/gulp');

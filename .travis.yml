@@ -1,0 +1,39 @@
+language:
+  - node_js
+
+node_js:
+  - 6
+  - 4
+
+cache:
+  directories:
+    - $HOME/.npm
+    - node_modules
+    - .eslintcache
+
+branches:
+  except:
+    # Don't run on tag pushes
+    - /^v\d+\.\d+\.\d+$/
+
+install:
+  - npm update
+  - npm prune
+
+script:
+  - npm test
+
+after_success:
+  - git config --global user.email "ci@smartcar.com"
+  - git config --global user.name "Travis CI User"
+
+  - export VERSION="$(grep \"version\" package.json | sed 's/[", ]//g' | cut -d : -f 2)"
+  - test $TRAVIS_BRANCH = "master"  && git tag -a v$VERSION -m "Travis Generated Tag"
+
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: git tag origin v$VERSION
+  on:
+    branch: master
+    node: node
