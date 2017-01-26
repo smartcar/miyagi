@@ -16,7 +16,7 @@ const check = function(fun) {
 
 const end = function(testEnd) {
 
-  return through.obj(function(file, enc, cb) {
+  return through.obj(function() {
     testEnd();
   });
 

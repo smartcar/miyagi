@@ -4,6 +4,10 @@
   "description": "A collection of linting tools for web components",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "lint": "eslint . --cache",
+    "test": "ava"
+  },
   "author": {
     "name": "Smartcar",
     "email": "hello@smartcar.com",

@@ -5,7 +5,8 @@ const _ = require('lodash');
 
 const stylefmt = {};
 
-// set a 'supportedRules' value to 'false' to disable autofixes for a specific rule
+/* set a 'supportedRules' value to 'false' to disable
+autofixes for a specific rule */
 const supportedRules = {
   'at-rule-empty-line-before': true,
   'at-rule-semicolon-newline-after': true,
@@ -20,7 +21,7 @@ const supportedRules = {
   'declaration-block-properties-order': true,
   'declaration-colon-space-after': true,
   'declaration-colon-space-before': true,
-  'indentation': true,
+  indentation: true,
   'length-zero-no-unit': true,
   'number-leading-zero': true,
   'number-no-trailing-zeros': true,
@@ -45,4 +46,4 @@ stylefmt.rules = _.reduce(supportedRules, function(rules, value, key) {
 }, {});
 
 // incorporate other stylelint options before exporting
-module.exports = _.assign(csslintDefaults, stylefmt)
+module.exports = _.assign(csslintDefaults, stylefmt);

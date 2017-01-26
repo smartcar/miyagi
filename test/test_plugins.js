@@ -22,7 +22,7 @@ test.cb('inject modifies files', function(t) {
   const modifier = function(content) {
     t.is(content, mock.originalScript);
     return mock.modifiedScript;
-  }
+  };
 
   const verify = function(file) {
     t.is(file, mock.modifiedHTML);
@@ -47,7 +47,7 @@ test.cb('extract pipes tag content to the next plugin', function(t) {
 
 });
 
-test.cb('extract will create a new stream for every matching tag pair', function(t) {
+test.cb('extract will create a stream for every matching tag', function(t) {
   var completedStreams = 0;
 
   const verify = function(file) {

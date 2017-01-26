@@ -1,6 +1,5 @@
 'use strict';
 
-const eslintDefaults = require('./lint-config/eslint.js');
 const csslintDefaults = require('./lint-config/stylelint.js');
 const htmllintDefaults = require('./lint-config/htmllint.js');
 const stylefmtDefaults = require('./lint-config/stylefmt.js');
@@ -9,7 +8,6 @@ const polymerlintDefaults = require('./lint-config/polymerlint.js');
 const _ = require('lodash');
 const gulp = require('gulp');
 const path = require('path');
-const eslint = require('eslint');
 const postcss = require('postcss');
 const stylefmt = require('stylefmt');
 const CLIEngine = require('eslint').CLIEngine;
@@ -45,7 +43,7 @@ const transformObject = function(defaults, config) {
  * @param {Object} [config] a configuration object that can be
  * used to override eslint defaults found within lint-config/eslint
  *
- * @returns {function} A function that will return a gulp 
+ * @returns {function} A function that will return a gulp
  * stream when called
  */
 const scriptlint = function(target, config) {
@@ -70,7 +68,7 @@ const scriptlint = function(target, config) {
  * @param {Object} [config] a configuration object that can be
  * used to override eslint defaults found within lint-config/eslint
  *
- * @returns {function} A function that will return a gulp 
+ * @returns {function} A function that will return a gulp
  * stream when called
  */
 const scriptlintFix = function(target, config) {
@@ -94,10 +92,11 @@ const scriptlintFix = function(target, config) {
     var trailingWhitespace = script.match(/[\r\n\t ]+$/);
     var output = linter.executeOnText(script).results[0].output || script;
 
-    /* 
-    eslint removes trailing whitespace by default. This can cause problems with
-    tag spacing. This issue is solved by re-inserting whitespace
-    once linting is complete.
+    /*
+    * eslint removes trailing whitespace by default.
+    * This can cause problems with tag spacing.
+    * This issue is solved by re-inserting whitespace
+    * once linting is complete.
     */
     if (trailingWhitespace) {
       output += trailingWhitespace[0];
@@ -122,7 +121,7 @@ const scriptlintFix = function(target, config) {
  * @param {Object} [config] a configuration object that can be
  * used to override style defaults found within lint-config/stylelint
  *
- * @returns {function} A function that will return a gulp 
+ * @returns {function} A function that will return a gulp
  * stream when called
  */
 const csslint = function(target, config) {
@@ -148,7 +147,7 @@ const csslint = function(target, config) {
  * @param {Object} [config] a configuration object that can be
  * used to override style defaults found within lint-config/stylelint
  *
- * @returns {function} A function that will return a gulp 
+ * @returns {function} A function that will return a gulp
  * stream when called
  */
 const csslintFix = function(target, config) {
@@ -208,7 +207,7 @@ const csslintFix = function(target, config) {
  * @param {Object} [config] a configuration object that can be
  * used to override style defaults found within lint-config/polymer
  *
- * @returns {function} A function that will return a gulp 
+ * @returns {function} A function that will return a gulp
  * stream when called
  */
 const polymerlint = function(target, config) {
@@ -233,7 +232,7 @@ const polymerlint = function(target, config) {
  * @param {Object} [config] a configuration object that can be
  * used to override style defaults found within lint-config/polymer
  *
- * @returns {function} A function that will return a gulp 
+ * @returns {function} A function that will return a gulp
  * stream when called
  */
 const htmllint = function(target, config) {
@@ -252,10 +251,10 @@ const htmllint = function(target, config) {
 };
 
 module.exports = {
-  scriptlint, 
-  scriptlintFix, 
-  csslint, 
-  csslintFix, 
-  polymerlint, 
-  htmllint
+  scriptlint,
+  scriptlintFix,
+  csslint,
+  csslintFix,
+  polymerlint,
+  htmllint,
 };
