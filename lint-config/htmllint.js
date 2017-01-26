@@ -13,5 +13,5 @@ module.exports = {
   'line-max-len': 100,
   'tag-name-lowercase': true,
   'tag-name-match': true,
-  'tag-self-close': 'never'
-}
+  'tag-self-close': 'never',
+};

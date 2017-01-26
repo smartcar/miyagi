@@ -1,9 +1,13 @@
 {
   "name": "miyagi",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A collection of linting tools for web components",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "lint": "eslint . --cache",
+    "test": "ava"
+  },
   "author": {
     "name": "Smartcar",
     "email": "hello@smartcar.com",
@@ -31,9 +35,6 @@
   ],
   "engines": {
     "node": ">=4.0.0"
-  },
-  "scripts": {
-    "test": "ava"
   },
   "peerDependencies": {
     "gulp": ">=3.8.0"

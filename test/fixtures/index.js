@@ -14,10 +14,11 @@ const unlintedStyle = fs.readFileSync(path.join(__dirname, 'unlinted-style.html'
 const lintedStyle = fs.readFileSync(path.join(__dirname, 'linted-style.html'), 'utf8');
 
 module.exports = {
-  originalHTML, 
-  modifiedHTML, 
-  originalScript, 
+  originalHTML,
+  modifiedHTML,
+  originalScript,
   modifiedScript,
+  multipleMatchHTML,
   unlintedScript,
   lintedScript,
   unlintedStyle,
