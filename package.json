@@ -36,9 +36,6 @@
   "engines": {
     "node": ">=4.0.0"
   },
-  "scripts": {
-    "test": "ava"
-  },
   "peerDependencies": {
     "gulp": ">=3.8.0"
   },
