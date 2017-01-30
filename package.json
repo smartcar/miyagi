@@ -1,9 +1,13 @@
 {
   "name": "miyagi",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "A collection of linting tools for web components",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "lint": "eslint . --cache",
+    "test": "ava"
+  },
   "author": {
     "name": "Smartcar",
     "email": "hello@smartcar.com",
@@ -36,15 +40,25 @@
     "gulp": ">=3.8.0"
   },
   "dependencies": {
+    "bluebird": "^3.4.7",
     "eslint": "^3.12.2",
     "eslint-config-smartcar": "^2.0.2",
     "eslint-plugin-script-tags": "^0.1.4",
-    "gulp-csslint-latest": "^0.1.6",
     "gulp-eslint": "^3.0.1",
     "gulp-html-extract": "^0.2.0",
     "gulp-html-lint": "0.0.1",
     "gulp-load-plugins": "^1.4.0",
+    "gulp-stylelint": "^3.7.0",
+    "gulp-util": "^3.0.8",
+    "lodash": "^4.17.4",
     "polymer-lint": "^0.8.3",
+    "postcss": "^5.2.10",
+    "string-replace-async": "^1.2.0",
+    "stylefmt": "^5.1.1",
     "through2": "^2.0.3"
+  },
+  "devDependencies": {
+    "ava": "^0.17.0",
+    "gulp": "^3.9.1"
   }
 }
