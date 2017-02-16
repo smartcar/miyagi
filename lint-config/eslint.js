@@ -18,5 +18,10 @@ module.exports = {
     strict: ['error', 'function'],
     'eol-last': ['error', 'never'],
     'no-console': ['error', {allow: ['warn', 'error']}],
+    'max-len': ['warn', {
+      code: 100,
+      comments: 120,
+      ignoreUrls: true,
+    }],
   },
 };

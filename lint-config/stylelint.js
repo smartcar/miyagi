@@ -41,7 +41,6 @@ module.exports = {
     'number-max-precision': 2,
     'number-no-trailing-zeros': true,
     'no-duplicate-selectors': true,
-    indentation: 2,
     'font-family-no-duplicate-names': true,
     'font-family-name-quotes': 'always-where-required',
     'length-zero-no-unit': true,
