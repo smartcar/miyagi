@@ -238,14 +238,17 @@ const polymerlint = function(target, config) {
 const htmllint = function(target, config) {
   var args = _.assign(htmllintDefaults, config);
 
-  return function() {
+  const modifier = function() {
+    return '';
+  };
 
+  return function() {
     return gulp.src(target)
+      .pipe($.inject('script', modifier))
       .pipe($.htmlLint({
         rules: args,
       }))
       .pipe($.htmlLint.formatEach());
-
   };
 
 };
